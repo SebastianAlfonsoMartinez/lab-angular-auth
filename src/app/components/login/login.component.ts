@@ -29,6 +29,11 @@ export class LoginComponent implements OnInit {
     this.userService.login(this.formLogin.value)
       .then(response => {
         console.log(response);
+        response.user.getIdToken().then(token => {
+          console.log(token);
+          sessionStorage.setItem('token', token)
+        })
+        this.router.navigate(['/main']);
       })
       .catch(error => console.log(error));
   }
@@ -37,6 +42,10 @@ export class LoginComponent implements OnInit {
     this.userService.loginWithGoogle()
       .then(response => {
         console.log(response);
+        response.user.getIdToken().then(token => {
+          console.log(token);
+          sessionStorage.setItem('token', token)
+        })
         this.router.navigate(['/main']);
       })
       .catch(error => console.log(error))
